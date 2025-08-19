@@ -769,12 +769,25 @@ body {
         font-size: 2.5rem;
     }
     
+    .container {
+        max-width: 100%;
+        padding: 0 12px;
+    }
+
+    .cabins-carousel {
+        max-width: 100%;
+        width: 100%;
+    }
+
     .cabins-grid {
-        gap: 1rem; /* tighter spacing on mobile */
+        gap: 12px; /* tighter spacing on mobile */
+        flex-wrap: wrap; /* allow wrapping to fill width */
     }
 
     .cabin-card {
-        min-width: 80vw; /* fit small screens */
+        min-width: 100%; /* full width cards on mobile */
+        width: 100%;
+        margin: 0;
     }
     
     .contact-content {
@@ -818,8 +831,9 @@ body {
     }
     
     .cabin-card {
-        margin: 0 10px;
-        min-width: 88vw; /* slightly wider for narrow phones */
+        margin: 0; /* remove side margins to avoid grey gaps */
+        min-width: 100%; /* full width on very small phones */
+        width: 100%;
     }
 
     .cabin-image {

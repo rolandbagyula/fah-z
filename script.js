@@ -59,6 +59,7 @@ const cabinsGrid = document.getElementById('cabinsGrid');
 const cards = document.querySelectorAll('.cabin-card');
 const dots = document.querySelectorAll('.carousel-dot');
 let totalSlides = cards.length;
+let enableDrag = true; // disabled in wrapped (stacked) layout
 
 function getCardStep() {
     if (!cards.length) return 0;
@@ -82,6 +83,10 @@ function clampSlideIndex() {
 }
 
 function updateCarousel() {
+    if (!enableDrag) {
+        cabinsGrid.style.transform = 'none';
+        return;
+    }
     clampSlideIndex();
     const step = getCardStep();
     const translateX = (-currentSlide * step) + getCenterOffset();
@@ -147,6 +152,7 @@ function getCurrentTranslate() {
 }
 
 function onPointerDown(e) {
+    if (!enableDrag) return; // ignore in wrapped mode
     // Only left button or touch/pen
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     isDragging = true;
@@ -163,6 +169,7 @@ function onPointerDown(e) {
 }
 
 function onPointerMove(e) {
+    if (!enableDrag) return;
     if (!isDragging) return;
     const dx = e.clientX - dragStartX;
     const dy = e.clientY - dragStartY;
@@ -175,6 +182,7 @@ function onPointerMove(e) {
 }
 
 function onPointerUp(e) {
+    if (!enableDrag) return;
     if (!isDragging) return;
     isDragging = false;
     cabinsGrid.style.transition = '';
@@ -208,11 +216,29 @@ cabinsGrid.addEventListener('click', (e) => {
 
 // Recalculate on resize
 window.addEventListener('resize', () => {
-    updateCarousel();
+    checkLayoutMode();
 });
 
 // Initialize position on load
-updateCarousel();
+checkLayoutMode();
+
+function checkLayoutMode() {
+    // Detect if grid is wrapping (mobile stacked layout)
+    const styles = window.getComputedStyle(cabinsGrid);
+    const isWrap = styles.flexWrap && styles.flexWrap !== 'nowrap';
+    if (isWrap) {
+        enableDrag = false;
+        cabinsGrid.style.transition = '';
+        cabinsGrid.style.transform = 'none';
+        dots.forEach(d => d.style.display = 'none');
+        stopAutoplay();
+    } else {
+        enableDrag = true;
+        dots.forEach(d => d.style.display = '');
+        updateCarousel();
+        startAutoplay();
+    }
+}
 
 // CTA is now an anchor; smooth scrolling handler above already handles it.
 
