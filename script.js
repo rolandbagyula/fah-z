@@ -2,10 +2,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
+    const body = document.body;
     
     hamburger.addEventListener('click', function() {
         hamburger.classList.toggle('active');
         navMenu.classList.toggle('active');
+        body.classList.toggle('menu-open', navMenu.classList.contains('active'));
     });
 
     // Close mobile menu when clicking on a link
@@ -13,7 +15,17 @@ document.addEventListener('DOMContentLoaded', function() {
         link.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
+            body.classList.remove('menu-open');
         });
+    });
+
+    // Close menu with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+            body.classList.remove('menu-open');
+        }
     });
 });
 
@@ -417,8 +429,10 @@ document.querySelectorAll('.service-item').forEach(item => {
     observer.observe(item);
 });
 
-// Parallax Effect for Hero Section (skip if reduced motion)
-if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+// Parallax Effect for Hero Section (skip if reduced motion or small screens)
+const allowParallax = !window.matchMedia('(prefers-reduced-motion: reduce)').matches &&
+                      window.matchMedia('(min-width: 768px)').matches;
+if (allowParallax) {
     window.addEventListener('scroll', () => {
         const scrolled = window.pageYOffset;
         const hero = document.querySelector('.hero');

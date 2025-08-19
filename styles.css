@@ -5,6 +5,14 @@
     box-sizing: border-box;
 }
 
+/* Ensure anchored sections are not hidden behind the fixed navbar */
+section, .hero { scroll-margin-top: 90px; }
+
+/* Lock body scroll when mobile menu is open */
+body.menu-open {
+    overflow: hidden;
+}
+
 /* Tablet fine-tuning */
 @media (min-width: 768px) and (max-width: 1024px) {
     .cabins-grid { gap: 1.25rem; }
@@ -750,6 +758,7 @@ body {
         text-align: center;
         transition: 0.3s;
         padding: 2rem 0;
+        z-index: 1200; /* overlay above content */
     }
     
     .nav-menu.active {
@@ -790,6 +799,9 @@ body {
     .testimonials-grid {
         grid-template-columns: 1fr;
     }
+
+    /* Disable fixed background on mobile to prevent janky scrolling */
+    body { background-attachment: scroll, scroll; }
 }
 
 @media (max-width: 480px) {
