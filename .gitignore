@@ -1,0 +1,17 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# Node / tooling (ha később hozzáadnál buildet)
+node_modules/
+dist/
+.next/
+.out/
+.cache/
+.env
+.env.*
+
+# VSCode
+.vscode/

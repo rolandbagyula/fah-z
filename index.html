@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faház bérlés a természetben | Faház Bérlés</title>
+    <meta name="description" content="Faház bérlés a természetben – válogatott erdei, tavi és hegyi faházak családoknak és pároknak. Gyors foglalás, barátságos árak, természetközeli élmények.">
+    <link rel="canonical" href="https://example.com/">
+    <meta property="og:title" content="Faház bérlés a természetben">
+    <meta property="og:description" content="Természetközeli, modern és barátságos faházak bérlése. Foglalj most!">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://example.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Faház bérlés a természetben">
+    <meta name="twitter:description" content="Természetközeli, modern és barátságos faházak bérlése. Foglalj most!">
+
+    <!-- TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: '#1a4d3a',
+              primaryDark: '#13402f',
+              accent: '#ff6b35'
+            },
+          }
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="text-gray-900 antialiased">
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2 class="font-semibold">🏡 Faház Bérlés</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home">Kezdőlap</a></li>
+                <li><a href="#fahazak">Faházak</a></li>
+                <li><a href="#foglalas">Foglalás</a></li>
+                <li><a href="#contact">Kapcsolat</a></li>
+            </ul>
+            <div class="hamburger" aria-label="Menü">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Faház bérlés a természetben</h1>
+            <p>Válogatott erdei, tavi és hegyi faházak – természetes hangulat, modern kényelem.</p>
+            <a href="#foglalas" class="cta-button inline-block">Foglalj most</a>
+        </div>
+    </section>
+
+    <!-- Cabins Section / Carousel -->
+    <section id="fahazak" class="w-full py-12">
+        <div class="cabins-carousel">
+            <div class="carousel-nav carousel-prev">‹</div>
+            <div class="cabins-grid" id="cabinsGrid" aria-live="polite">
+                <div class="cabin-card" itemscope itemtype="https://schema.org/LodgingBusiness">
+                    <div class="cabin-image">
+                        <img src="erdei menedék.jpg" alt="Erdei Menedék faház képe" loading="lazy" itemprop="image">
+                    </div>
+                    <div class="cabin-info">
+                        <div class="cabin-brand" itemprop="brand">WoodNest</div>
+                        <h3 itemprop="name">Erdei Menedék</h3>
+                        <div class="cabin-details">
+                            <div class="cabin-specs" itemprop="description">4 fő • 2 szoba • Kandallóval</div>
+                            <div class="cabin-rating">4.8</div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price" itemprop="priceRange">25,000 Ft<span class="price-note">/éj</span></div>
+                        </div>
+                        <button class="book-btn">Foglalj most</button>
+                    </div>
+                </div>
+
+                <div class="cabin-card" itemscope itemtype="https://schema.org/LodgingBusiness">
+                    <div class="cabin-image">
+                        <img src="tavi.jpg" alt="Tavi Panoráma faház képe" loading="lazy" itemprop="image">
+                    </div>
+                    <div class="cabin-info">
+                        <div class="cabin-brand" itemprop="brand">WoodNest</div>
+                        <h3 itemprop="name">Tavi Panoráma</h3>
+                        <div class="cabin-details">
+                            <div class="cabin-specs" itemprop="description">6 fő • 3 szoba • Tóparti</div>
+                            <div class="cabin-rating">4.7</div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price" itemprop="priceRange">35,000 Ft<span class="price-note">/éj</span></div>
+                        </div>
+                        <button class="book-btn">Foglalj most</button>
+                    </div>
+                </div>
+
+                <div class="cabin-card" itemscope itemtype="https://schema.org/LodgingBusiness">
+                    <div class="cabin-image">
+                        <img src="hegyi.jpg" alt="Hegyi Kilátó faház képe" loading="lazy" itemprop="image">
+                    </div>
+                    <div class="cabin-info">
+                        <div class="cabin-brand" itemprop="brand">WoodNest</div>
+                        <h3 itemprop="name">Hegyi Kilátó</h3>
+                        <div class="cabin-details">
+                            <div class="cabin-specs" itemprop="description">8 fő • 4 szoba • Panoráma</div>
+                            <div class="cabin-rating">4.9</div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price" itemprop="priceRange">45,000 Ft<span class="price-note">/éj</span></div>
+                        </div>
+                        <button class="book-btn">Foglalj most</button>
+                    </div>
+                </div>
+
+                <div class="cabin-card" itemscope itemtype="https://schema.org/LodgingBusiness">
+                    <div class="cabin-image">
+                        <img src="romantikus.jpg" alt="Romantikus Búvóhely faház képe" loading="lazy" itemprop="image">
+                    </div>
+                    <div class="cabin-info">
+                        <div class="cabin-brand" itemprop="brand">WoodNest</div>
+                        <h3 itemprop="name">Romantikus Búvóhely</h3>
+                        <div class="cabin-details">
+                            <div class="cabin-specs" itemprop="description">2 fő • 1 szoba • Jacuzzival</div>
+                            <div class="cabin-rating">4.6</div>
+                        </div>
+                        <div class="price-section">
+                            <div class="price" itemprop="priceRange">30,000 Ft<span class="price-note">/éj</span></div>
+                        </div>
+                        <button class="book-btn">Foglalj most</button>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav carousel-next">›</div>
+            <div class="carousel-dots">
+                <div class="carousel-dot active"></div>
+                <div class="carousel-dot"></div>
+                <div class="carousel-dot"></div>
+                <div class="carousel-dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Rólunk</h2>
+                    <p>Több mint 15 éve foglalkozunk faház bérlésekkel Magyarország legszebb természeti környezetében. Családi vállalkozásként indultunk, és ma már az ország egyik vezető faház bérlési szolgáltatója vagyunk.</p>
+                    <p>Minden faházunk gondosan kiválasztott helyszínen található, ahol a természet szépsége és a modern kényelem tökéletes harmóniában van. Célunk, hogy vendégeink számára felejthetetlen élményeket teremtsünk.</p>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <h3>150+</h3>
+                            <p>Elégedett vendég</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>15+</h3>
+                            <p>Év tapasztalat</p>
+                        </div>
+                        <div class="stat-item">
+                            <h3>25+</h3>
+                            <p>Faház</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=800&h=600&fit=crop" alt="Faház a természetben illusztráció" loading="lazy">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2>Szolgáltatásaink</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <div class="service-icon">🔥</div>
+                    <h3>Kandalló & Fűtés</h3>
+                    <p>Minden faházban modern fűtési rendszer és hangulatos kandalló</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🍳</div>
+                    <h3>Felszerelt Konyha</h3>
+                    <p>Teljesen felszerelt konyhák minden főzési igényhez</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">🌲</div>
+                    <h3>Természeti Környezet</h3>
+                    <p>Erdők, tavak és hegyek közelsége garantált</p>
+                </div>
+                <div class="service-item">
+                    <div class="service-icon">📶</div>
+                    <h3>WiFi & Kényelem</h3>
+                    <p>Ingyenes WiFi és modern kényelmi szolgáltatások</p>
+                </div>
+            </div>
+            <div class="text-center mt-10">
+                <a href="#foglalas" class="inline-block px-6 py-3 rounded-full bg-white text-primary font-semibold shadow hover:shadow-lg transition">Foglalj most</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2>Mit mondanak vendégeink</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p>"Fantasztikus hétvégét töltöttünk a Tavi Panoráma faházban. A kilátás lenyűgöző volt, és minden részlet gondosan meg volt tervezve."</p>
+                        <div class="testimonial-author">
+                            <strong>Kovács Anna</strong>
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p>"Tökéletes hely a családdal való pihenéshez. A gyerekek imádták az erdőt, mi pedig a békés környezetet."</p>
+                        <div class="testimonial-author">
+                            <strong>Nagy Péter</strong>
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-item">
+                    <div class="testimonial-content">
+                        <p>"Romantikus hétvége a párunkkal. A Romantikus Búvóhely minden várakozásunkat felülmúlta."</p>
+                        <div class="testimonial-author">
+                            <strong>Szabó Mária</strong>
+                            <span>⭐⭐⭐⭐⭐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking CTA / Simple form anchor -->
+    <section id="foglalas" class="py-16">
+        <div class="container">
+            <div class="text-center mb-8">
+                <h2 class="text-white text-3xl font-bold drop-shadow">Foglalj most</h2>
+                <p class="text-white/90">Válaszd ki a számodra megfelelő faházat és küldd el érdeklődésed.</p>
+            </div>
+            <div class="text-center">
+                <a href="#contact" class="inline-block px-8 py-3 rounded-full bg-white text-primary font-semibold shadow hover:shadow-lg transition">Kapcsolatfelvétel</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Kapcsolat</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Lépj kapcsolatba velünk</h3>
+                    <p>📞 +36 30 123 4567</p>
+                    <p>📧 info@fahazberles.hu</p>
+                    <p>📍 Budapest, Magyarország</p>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Neved" aria-label="Neved" required>
+                    <input type="email" placeholder="Email címed" aria-label="Email címed" required>
+                    <textarea placeholder="Üzeneted" rows="5" aria-label="Üzeneted" required></textarea>
+                    <button type="submit">Üzenet küldése</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Faház Bérlés. Minden jog fenntartva.</p>
+        </div>
+    </footer>
+    
+    <!-- Structured Data for Cabins -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "itemListElement": [
+        {
+          "@type": "LodgingBusiness",
+          "name": "Erdei Menedék",
+          "description": "4 fő • 2 szoba • Kandallóval",
+          "image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1200&h=800&fit=crop",
+          "priceRange": "25000 HUF/éj"
+        },
+        {
+          "@type": "LodgingBusiness",
+          "name": "Tavi Panoráma",
+          "description": "6 fő • 3 szoba • Tóparti",
+          "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop",
+          "priceRange": "35000 HUF/éj"
+        },
+        {
+          "@type": "LodgingBusiness",
+          "name": "Hegyi Kilátó",
+          "description": "8 fő • 4 szoba • Panoráma",
+          "image": "https://images.unsplash.com/photo-1470770841072-f978cf4d019e?w=1200&h=800&fit=crop",
+          "priceRange": "45000 HUF/éj"
+        },
+        {
+          "@type": "LodgingBusiness",
+          "name": "Romantikus Búvóhely",
+          "description": "2 fő • 1 szoba • Jacuzzival",
+          "image": "https://images.unsplash.com/photo-1464822759844-d150baec3e5e?w=1200&h=800&fit=crop&auto=format&q=80",
+          "priceRange": "30000 HUF/éj"
+        }
+      ]
+    }
+    </script>
+
+    <script src="script.js"></script>
+</body>
+</html>
