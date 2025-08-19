@@ -36,6 +36,8 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
+/* Make all generic images responsive by default (safety net) */
+img { max-width: 100%; height: auto; }
 
 /* Color Variables */
 :root {
@@ -839,6 +841,31 @@ body {
     .cabin-image {
         height: 180px; /* reduce image height on very small screens */
     }
+}
+
+/* Tablet (landscape) fine-tuning beyond existing rules */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container { padding: 0 16px; }
+    .about-content, .contact-content { gap: 2.5rem; }
+}
+
+/* Laptop and up */
+@media (min-width: 1024px) {
+    /* Give the carousel more breathing space on wider screens */
+    .cabins-carousel { max-width: 900px; }
+}
+
+/* Large desktops */
+@media (min-width: 1280px) {
+    .container { max-width: 1280px; }
+    .cabins-carousel { max-width: 1100px; }
+}
+
+/* Very large monitors */
+@media (min-width: 1536px) {
+    .container { max-width: 1400px; }
+    .hero { padding: 140px 20px 80px; }
+    .services, .about, .contact, #foglalas { padding-top: 100px; padding-bottom: 100px; }
 }
 
 /* Animations */
