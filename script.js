@@ -57,6 +57,13 @@ function getCardStep() {
     return cardWidth + (isNaN(gap) ? 0 : gap);
 }
 
+function getCenterOffset() {
+    if (!cards.length) return 0;
+    const cardWidth = cards[0].offsetWidth;
+    const containerWidth = carouselWrap.clientWidth || 0;
+    return (containerWidth - cardWidth) / 2;
+}
+
 function clampSlideIndex() {
     if (currentSlide >= totalSlides) currentSlide = 0;
     if (currentSlide < 0) currentSlide = totalSlides - 1;
@@ -65,7 +72,7 @@ function clampSlideIndex() {
 function updateCarousel() {
     clampSlideIndex();
     const step = getCardStep();
-    const translateX = -currentSlide * step;
+    const translateX = (-currentSlide * step) + getCenterOffset();
     cabinsGrid.style.transform = `translateX(${translateX}px)`;
     dots.forEach((dot, index) => dot.classList.toggle('active', index === currentSlide));
 }
@@ -117,8 +124,10 @@ startAutoplay();
 // Drag/swipe to slide (pointer events)
 let isDragging = false;
 let dragStartX = 0;
+let dragStartY = 0;
 let baseOffset = 0;
 let hasMoved = false;
+let suppressedClick = false;
 
 function getCurrentTranslate() {
     const step = getCardStep();
@@ -132,6 +141,7 @@ function onPointerDown(e) {
     hasMoved = false;
     stopAutoplay();
     dragStartX = e.clientX;
+    dragStartY = e.clientY;
     baseOffset = getCurrentTranslate();
     carouselWrap.setPointerCapture?.(e.pointerId);
     cabinsGrid.style.transition = 'none';
@@ -143,7 +153,12 @@ function onPointerDown(e) {
 function onPointerMove(e) {
     if (!isDragging) return;
     const dx = e.clientX - dragStartX;
+    const dy = e.clientY - dragStartY;
     if (Math.abs(dx) > 3) hasMoved = true;
+    // If horizontal intent, prevent page from panning
+    if (Math.abs(dx) > Math.abs(dy)) {
+        e.preventDefault();
+    }
     cabinsGrid.style.transform = `translateX(${baseOffset + dx}px)`;
 }
 
@@ -160,18 +175,32 @@ function onPointerUp(e) {
     if (!carouselWrap.matches(':hover')) startAutoplay();
     carouselWrap.classList.remove('dragging');
     document.body.style.userSelect = '';
+    // Suppress immediate clicks after a drag gesture
+    suppressedClick = hasMoved;
+    setTimeout(() => { suppressedClick = false; }, 50);
 }
 
-// Attach pointer listeners
-carouselWrap.addEventListener('pointerdown', onPointerDown);
-window.addEventListener('pointermove', onPointerMove);
-window.addEventListener('pointerup', onPointerUp);
-window.addEventListener('pointercancel', onPointerUp);
+// Attach pointer listeners (use passive:false where we may call preventDefault)
+carouselWrap.addEventListener('pointerdown', onPointerDown, { passive: true });
+window.addEventListener('pointermove', onPointerMove, { passive: false });
+window.addEventListener('pointerup', onPointerUp, { passive: true });
+window.addEventListener('pointercancel', onPointerUp, { passive: true });
+
+// Prevent accidental clicks after drag
+cabinsGrid.addEventListener('click', (e) => {
+    if (suppressedClick) {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+}, true);
 
 // Recalculate on resize
 window.addEventListener('resize', () => {
     updateCarousel();
 });
+
+// Initialize position on load
+updateCarousel();
 
 // CTA is now an anchor; smooth scrolling handler above already handles it.
 

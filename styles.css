@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+/* Tablet fine-tuning */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .cabins-grid { gap: 1.25rem; }
+    .cabin-card { min-width: 70vw; }
+}
+
 body {
     font-family: 'Arial', sans-serif;
     line-height: 1.6;
@@ -168,12 +174,16 @@ body {
     z-index: 2;
     margin: 0 auto;
     cursor: grab;
+    overflow: hidden; /* clip horizontal movement */
+    touch-action: pan-y; /* allow vertical scroll, disable native horizontal pan */
+    -webkit-overflow-scrolling: touch;
 }
 
 .cabins-grid {
     display: flex;
     transition: transform 0.5s ease;
     gap: 2rem;
+    will-change: transform;
 }
 
 .carousel-nav {
@@ -751,8 +761,11 @@ body {
     }
     
     .cabins-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1rem; /* tighter spacing on mobile */
+    }
+
+    .cabin-card {
+        min-width: 80vw; /* fit small screens */
     }
     
     .contact-content {
@@ -794,6 +807,11 @@ body {
     
     .cabin-card {
         margin: 0 10px;
+        min-width: 88vw; /* slightly wider for narrow phones */
+    }
+
+    .cabin-image {
+        height: 180px; /* reduce image height on very small screens */
     }
 }
 
