@@ -183,7 +183,7 @@ img { max-width: 100%; height: auto; }
     width: 100%;
     z-index: 2;
     margin: 0 auto;
-    cursor: grab;
+    cursor: default; /* drag tiltva */
     overflow: hidden; /* clip horizontal movement */
     touch-action: pan-y; /* allow vertical scroll, disable native horizontal pan */
     -webkit-overflow-scrolling: touch;
@@ -207,7 +207,7 @@ img { max-width: 100%; height: auto; }
     border-radius: 50%;
     width: 50px;
     height: 50px;
-    display: flex;
+    display: flex; /* mindig látható */
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -215,8 +215,6 @@ img { max-width: 100%; height: auto; }
     font-size: 1.2rem;
     transition: all 0.3s ease;
     z-index: 3;
-    /* hidden when using drag navigation */
-    display: none;
 }
 
 .carousel-nav:hover {
@@ -225,12 +223,14 @@ img { max-width: 100%; height: auto; }
 }
 
 .carousel-prev {
-    left: -25px;
+    left: 10px;
 }
 
 .carousel-next {
-    right: -25px;
+    right: 10px;
 }
+
+/* Nyilak pozíciója nagyobb képernyőn finomítható szükség esetén */
 
 /* Dragging state */
 .cabins-carousel.dragging {
@@ -783,7 +783,7 @@ img { max-width: 100%; height: auto; }
 
     .cabins-grid {
         gap: 12px; /* tighter spacing on mobile */
-        flex-wrap: wrap; /* allow wrapping to fill width */
+        flex-wrap: nowrap; /* ne tördeljen mobilon, hogy a karusszel működjön */
     }
 
     .cabin-card {

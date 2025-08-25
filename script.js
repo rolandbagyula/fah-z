@@ -59,7 +59,8 @@ const cabinsGrid = document.getElementById('cabinsGrid');
 const cards = document.querySelectorAll('.cabin-card');
 const dots = document.querySelectorAll('.carousel-dot');
 let totalSlides = cards.length;
-let enableDrag = true; // disabled in wrapped (stacked) layout
+let enableDrag = false; // drag teljesen letiltva, csak nyilak működnek
+let isWrapped = false;  // elrendezés státusz (mobilon wrap)
 
 function getCardStep() {
     if (!cards.length) return 0;
@@ -73,7 +74,7 @@ function getCardStep() {
 function getCenterOffset() {
     if (!cards.length) return 0;
     const cardWidth = cards[0].offsetWidth;
-    const containerWidth = carouselWrap.clientWidth || 0;
+    const containerWidth = (typeof carouselWrap !== 'undefined' && carouselWrap) ? (carouselWrap.clientWidth || 0) : 0;
     return (containerWidth - cardWidth) / 2;
 }
 
@@ -83,7 +84,7 @@ function clampSlideIndex() {
 }
 
 function updateCarousel() {
-    if (!enableDrag) {
+    if (isWrapped) {
         cabinsGrid.style.transform = 'none';
         return;
     }
@@ -148,7 +149,8 @@ let suppressedClick = false;
 
 function getCurrentTranslate() {
     const step = getCardStep();
-    return -currentSlide * step;
+    // Include center offset so dragging starts from the exact visual position (prevents jump)
+    return (-currentSlide * step) + getCenterOffset();
 }
 
 function onPointerDown(e) {
@@ -200,11 +202,14 @@ function onPointerUp(e) {
     setTimeout(() => { suppressedClick = false; }, 50);
 }
 
-// Attach pointer listeners (use passive:false where we may call preventDefault)
-carouselWrap.addEventListener('pointerdown', onPointerDown, { passive: true });
-window.addEventListener('pointermove', onPointerMove, { passive: false });
-window.addEventListener('pointerup', onPointerUp, { passive: true });
-window.addEventListener('pointercancel', onPointerUp, { passive: true });
+// Drag teljesen tiltva: nem regisztráljuk a pointer eseményeket
+if (enableDrag) {
+    // Attach pointer listeners (use passive:false where we may call preventDefault)
+    carouselWrap.addEventListener('pointerdown', onPointerDown, { passive: true });
+    window.addEventListener('pointermove', onPointerMove, { passive: false });
+    window.addEventListener('pointerup', onPointerUp, { passive: true });
+    window.addEventListener('pointercancel', onPointerUp, { passive: true });
+}
 
 // Prevent accidental clicks after drag
 cabinsGrid.addEventListener('click', (e) => {
@@ -226,15 +231,20 @@ function checkLayoutMode() {
     // Detect if grid is wrapping (mobile stacked layout)
     const styles = window.getComputedStyle(cabinsGrid);
     const isWrap = styles.flexWrap && styles.flexWrap !== 'nowrap';
-    if (isWrap) {
-        enableDrag = false;
+    // állapot eltárolása
+    isWrapped = !!isWrap;
+    // Drag továbbra is ki van kapcsolva minden nézetben
+    if (isWrapped) {
         cabinsGrid.style.transition = '';
         cabinsGrid.style.transform = 'none';
         dots.forEach(d => d.style.display = 'none');
+        if (prevBtn) prevBtn.style.display = 'none';
+        if (nextBtn) nextBtn.style.display = 'none';
         stopAutoplay();
     } else {
-        enableDrag = true;
         dots.forEach(d => d.style.display = '');
+        if (prevBtn) prevBtn.style.display = '';
+        if (nextBtn) nextBtn.style.display = '';
         updateCarousel();
         startAutoplay();
     }
