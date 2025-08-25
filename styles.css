@@ -781,6 +781,16 @@ img { max-width: 100%; height: auto; }
         width: 100%;
     }
 
+    /* Hide carousel arrows on mobile */
+    .carousel-nav {
+        display: none !important;
+    }
+
+    /* Hide carousel dots on mobile */
+    .carousel-dots {
+        display: none !important;
+    }
+
     .cabins-grid {
         gap: 12px; /* tighter spacing on mobile */
         flex-wrap: nowrap; /* ne tördeljen mobilon, hogy a karusszel működjön */

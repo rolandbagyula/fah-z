@@ -59,7 +59,7 @@ const cabinsGrid = document.getElementById('cabinsGrid');
 const cards = document.querySelectorAll('.cabin-card');
 const dots = document.querySelectorAll('.carousel-dot');
 let totalSlides = cards.length;
-let enableDrag = false; // drag teljesen letiltva, csak nyilak működnek
+let enableDrag = false; // mobilon engedélyezzük majd dinamikusan
 let isWrapped = false;  // elrendezés státusz (mobilon wrap)
 
 function getCardStep() {
@@ -146,6 +146,7 @@ let dragStartY = 0;
 let baseOffset = 0;
 let hasMoved = false;
 let suppressedClick = false;
+let dragListenersAttached = false;
 
 function getCurrentTranslate() {
     const step = getCardStep();
@@ -154,7 +155,7 @@ function getCurrentTranslate() {
 }
 
 function onPointerDown(e) {
-    if (!enableDrag) return; // ignore in wrapped mode
+    if (!enableDrag) return; // ignore if drag disabled
     // Only left button or touch/pen
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     isDragging = true;
@@ -202,13 +203,43 @@ function onPointerUp(e) {
     setTimeout(() => { suppressedClick = false; }, 50);
 }
 
-// Drag teljesen tiltva: nem regisztráljuk a pointer eseményeket
-if (enableDrag) {
-    // Attach pointer listeners (use passive:false where we may call preventDefault)
+// Drag listenerek dinamikus kezelése (mobilon bekapcsoljuk)
+function attachDragListeners() {
+    if (dragListenersAttached) return;
     carouselWrap.addEventListener('pointerdown', onPointerDown, { passive: true });
     window.addEventListener('pointermove', onPointerMove, { passive: false });
     window.addEventListener('pointerup', onPointerUp, { passive: true });
     window.addEventListener('pointercancel', onPointerUp, { passive: true });
+    dragListenersAttached = true;
+}
+
+function detachDragListeners() {
+    if (!dragListenersAttached) return;
+    carouselWrap.removeEventListener('pointerdown', onPointerDown, { passive: true });
+    window.removeEventListener('pointermove', onPointerMove, { passive: false });
+    window.removeEventListener('pointerup', onPointerUp, { passive: true });
+    window.removeEventListener('pointercancel', onPointerUp, { passive: true });
+    dragListenersAttached = false;
+}
+
+function updateDragMode() {
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    enableDrag = isMobile; // csak mobilon húzható
+    if (enableDrag) {
+        attachDragListeners();
+        // mobilon: csak ujjal húzás, autoplay kikapcsolva
+        stopAutoplay();
+    } else {
+        detachDragListeners();
+        // biztos ami biztos: állapot reset
+        isDragging = false;
+        document.body.style.userSelect = '';
+        carouselWrap.classList.remove('dragging');
+        cabinsGrid.style.transition = '';
+        updateCarousel();
+        // desktopon: autoplay vissza
+        startAutoplay();
+    }
 }
 
 // Prevent accidental clicks after drag
@@ -222,10 +253,12 @@ cabinsGrid.addEventListener('click', (e) => {
 // Recalculate on resize
 window.addEventListener('resize', () => {
     checkLayoutMode();
+    updateDragMode();
 });
 
 // Initialize position on load
 checkLayoutMode();
+updateDragMode();
 
 function checkLayoutMode() {
     // Detect if grid is wrapping (mobile stacked layout)
